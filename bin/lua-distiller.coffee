@@ -86,9 +86,6 @@ OUTPUT_PATH_MINIFIED_LUA = ""
 OUTPUT_PATH_MERGED_JIT = ""
 OUTPUT_PATH_MINIFIED_JIT = ""
 
-PATH_TO_LUA_SRC_DIET = path.resolve(__dirname, "../luasrcdiet/")
-#console.log "[lua-distiller::PATH_TO_LUA_SRC_DIET] #{PATH_TO_LUA_SRC_DIET}"
-
 PATH_TO_LUA_JIT = which "luajit"
 #console.log "[lua-distiller::PATH_TO_LUA_JIT] #{PATH_TO_LUA_JIT}"
 
@@ -167,14 +164,14 @@ p.output = path.resolve(process.cwd(), p.output || '')
 
 if path.extname(p.output)
   OUTPUT_PATH_MERGED_LUA = path.resolve process.cwd(), p.output
-  OUTPUT_PATH_MINIFIED_LUA = path.resolve(process.cwd(), "#{p.output}.min.lua")
+  #OUTPUT_PATH_MINIFIED_LUA = path.resolve(process.cwd(), "#{p.output}.min.lua")
 else
-  outputBasename = path.basename(p.output ||  p.input, '.lua')
-  OUTPUT_PATH_MERGED_LUA = path.join p.output, "#{outputBasename}.merged.lua"
-  OUTPUT_PATH_MINIFIED_LUA = path.join p.output, "#{outputBasename}.min.lua"
+  #outputBasename = path.basename(p.output ||  p.input, '.lua')
+  #OUTPUT_PATH_MERGED_LUA = path.join p.output, "#{outputBasename}.merged.lua"
+  #OUTPUT_PATH_MINIFIED_LUA = path.join p.output, "#{outputBasename}.min.lua"
 
-OUTPUT_PATH_MERGED_JIT = "#{OUTPUT_PATH_MERGED_LUA}jit"
-OUTPUT_PATH_MINIFIED_JIT = "#{OUTPUT_PATH_MINIFIED_LUA}jit"
+#OUTPUT_PATH_MERGED_JIT = "#{OUTPUT_PATH_MERGED_LUA}jit"
+#OUTPUT_PATH_MINIFIED_JIT = "#{OUTPUT_PATH_MINIFIED_LUA}jit"
 
 mkdir('-p', path.dirname(OUTPUT_PATH_MERGED_LUA))
 
@@ -223,16 +220,3 @@ __DISTILLER:exec("#{entranceName}")
 
 # 输出
 fs.writeFileSync OUTPUT_PATH_MERGED_LUA, result
-
-if p.minify
-  console.log "minify merged lua file to: #{OUTPUT_PATH_MINIFIED_LUA}"
-  exec "cd #{PATH_TO_LUA_SRC_DIET} && ./LuaSrcDiet.lua #{OUTPUT_PATH_MERGED_LUA} -o #{OUTPUT_PATH_MINIFIED_LUA} "
-
-if p.luajitify
-  console.log "luajit compile merged lua file to #{OUTPUT_PATH_MERGED_JIT}"
-  exec "#{PATH_TO_LUA_JIT} -b #{OUTPUT_PATH_MERGED_LUA} #{OUTPUT_PATH_MERGED_JIT}"
-
-if p.luajitify and p.minify
-  console.log "luajit compile minified merged lua file to #{OUTPUT_PATH_MINIFIED_JIT}"
-  exec "#{PATH_TO_LUA_JIT} -b #{OUTPUT_PATH_MINIFIED_LUA} #{OUTPUT_PATH_MINIFIED_JIT}"
-

@@ -2,7 +2,7 @@
   "name": "lua-distiller",
     "description": "Merge multiple lua file into one single lua file.",
     "version": "0.2.3",
-    "homepage": "https://github.com/yi/node-lua-distiller",
+    "homepage": "https://github.com/foolhen/node-lua-distiller",
     "author": {
       "name": "yi",
       "email": "yi2004@gmail.com",
@@ -14,15 +14,15 @@
     "scripts":{"preinstall": "git submodule update -i -r"},
     "repository": {
       "type": "git",
-      "url": "git://github.com/yi/node-lua-distiller.git"
+      "url": "git://github.com/foolhen/node-lua-distiller.git"
     },
     "bugs": {
-      "url": "https://github.com/yi/node-lua-distiller/issues"
+      "url": "https://github.com/foolhen/node-lua-distiller/issues"
     },
     "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/yi/node-lua-distiller/blob/master/LICENSE"
+      "url": "https://github.com/foolhen/node-lua-distiller/blob/master/LICENSE"
     }
   ],
     "main": "./bin/lua-distiller.coffee",
